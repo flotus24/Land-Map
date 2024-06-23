@@ -1,0 +1,15 @@
+CREATE DATABASE ricelet;
+
+CREATE TABLE map(
+    map_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    path VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE maps(
+    map_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    ndvi VARCHAR(255) NOT NULL,
+    lst VARCHAR(255) NOT NULL,
+    vhi VARCHAR(255) NOT NULL
+);
