@@ -9,18 +9,19 @@ export const AddItem = () => {
   const router = useRouter()
   const [modalOpen, setModalOpen] = useState(false)
   const [name, setName] = useState("")
-  const [file, setFile] = useState(null)
-  const [file2, setFile2] = useState(null)
-  const [file3, setFile3] = useState(null)
+  const [ndvi, setNDVI] = useState(null)
+  const [lst, setLST] = useState(null)
+  const [tci, setTCI] = useState("Kosong")
 
   const handleSubmitMap = async (e) => {
     e.preventDefault()
     try {
+      console.log("tci = ", tci)
       const body = new FormData()
       body.append("name", name)
-      body.append("files", file)
-      body.append("files", file2)
-      body.append("files", file3)
+      body.append("ndvi", ndvi)
+      body.append("lst", lst)
+      body.append("tci", tci)
       console.log(...body)
       const response = await fetch("http://localhost:5000/maps", {
         method: "POST",
@@ -64,10 +65,10 @@ export const AddItem = () => {
                 </label>
               </div>
               <input
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => setNDVI(e.target.files[0])}
                 type="file"
                 className="file-input file-input-bordered mr-3 mb-1 align-middle"
-                required
+                // required
               />
             </div>
             <div className="w-full mb-1">
@@ -77,10 +78,10 @@ export const AddItem = () => {
                 </label>
               </div>
               <input
-                onChange={(e) => setFile2(e.target.files[0])}
+                onChange={(e) => setLST(e.target.files[0])}
                 type="file"
                 className="file-input file-input-bordered mr-3 mb-1 align-middle"
-                required
+                // required
               />
             </div>
             <div className="w-full mb-1">
@@ -90,10 +91,10 @@ export const AddItem = () => {
                 </label>
               </div>
               <input
-                onChange={(e) => setFile3(e.target.files[0])}
+                onChange={(e) => setTCI(e.target.files[0])}
                 type="file"
                 className="file-input file-input-bordered mr-3 mb-1 align-middle"
-                required
+                // required
               />
             </div>
             <button type="submit" className="btn mt-5 bg-gray-700">

@@ -16,7 +16,7 @@ import { EditControl } from "react-leaflet-draw"
 import { Dashboard } from "@/components/dashboard"
 import { NDVILayer } from "@/components/ndvi_layer"
 import { LSTLayer } from "@/components/lst_layer"
-import { VHILayer } from "@/components/vhi_layer"
+import { TCILayer } from "@/components/tci_layer"
 import LeafletControlGeocoder from "@/components/leafletControlGeocoder"
 import "leaflet/dist/leaflet.css"
 import "leaflet-draw/dist/leaflet.draw.css"
@@ -26,30 +26,30 @@ export default function Alpha() {
   const [geotiff, setGeotiff] = useState(null)
   const [ndvi, setNDVI] = useState(null)
   const [lst, setLST] = useState(null)
-  const [vhi, setVHI] = useState(null)
+  const [tci, setTCI] = useState(null)
   const [nama, setNama] = useState(null)
   const [geojson, setGeojson] = useState(null)
   const [firstRender, setFirstRender] = useState(true)
   var layer, layer2, layer3
 
-  const markers = [
-    {
-      geocode: [-7.0348864487501235, 107.70979205545923],
-      popUp: "Kecamatan Ciparay",
-    },
-    {
-      geocode: [-7.051728142735185, 107.7459885861163],
-      popUp: "Kecamatan Majalaya",
-    },
-    {
-      geocode: [-7.06654313074123, 107.79626994667821],
-      popUp: "Kecamatan Paseh",
-    },
-    {
-      geocode: [-7.027437649255725, 107.82304516667428],
-      popUp: "Kecamatan Cikancung",
-    },
-  ]
+  // const markers = [
+  //   {
+  //     geocode: [-7.0348864487501235, 107.70979205545923],
+  //     popUp: "Kecamatan Ciparay",
+  //   },
+  //   {
+  //     geocode: [-7.051728142735185, 107.7459885861163],
+  //     popUp: "Kecamatan Majalaya",
+  //   },
+  //   {
+  //     geocode: [-7.06654313074123, 107.79626994667821],
+  //     popUp: "Kecamatan Paseh",
+  //   },
+  //   {
+  //     geocode: [-7.027437649255725, 107.82304516667428],
+  //     popUp: "Kecamatan Cikancung",
+  //   },
+  // ]
 
   const customIcon = new Icon({
     iconUrl: "marker.svg",
@@ -68,13 +68,13 @@ export default function Alpha() {
   useEffect(() => {
     const ndvi = window.sessionStorage.getItem("ndvi")
     const lst = window.sessionStorage.getItem("lst")
-    const vhi = window.sessionStorage.getItem("vhi")
+    const tci = window.sessionStorage.getItem("tci")
     const nama = window.sessionStorage.getItem("nama")
     let geojson = window.sessionStorage.getItem("geojson")
     geojson = JSON.parse(geojson)
     setNDVI(ndvi)
     setLST(lst)
-    setVHI(vhi)
+    setTCI(tci)
     setNama(nama)
     setGeojson(geojson)
     console.log("ini geojson, ", geojson)
@@ -83,7 +83,7 @@ export default function Alpha() {
   function chooseGeotiff(tiff, nama) {
     sessionStorage.setItem("ndvi", tiff[0])
     sessionStorage.setItem("lst", tiff[1])
-    sessionStorage.setItem("vhi", tiff[2])
+    sessionStorage.setItem("tci", tiff[2])
     sessionStorage.setItem("nama", nama)
     window.location.reload(false)
   }
@@ -104,8 +104,8 @@ export default function Alpha() {
     layer2.setOpacity(opacity)
   }
 
-  function handleVHILayer(vhi) {
-    layer3 = vhi
+  function handleTCILayer(tci) {
+    layer3 = tci
   }
 
   function updateOpacity3(opacity) {
@@ -151,12 +151,12 @@ export default function Alpha() {
           mask={geojson}
           handleLSTLayer={handleLSTLayer}
         />
-        <VHILayer
-          geotiff={vhi}
+        <TCILayer
+          geotiff={tci}
           mask={geojson}
-          handleVHILayer={handleVHILayer}
+          handleTCILayer={handleTCILayer}
         />
-        <MarkerClusterGroup
+        {/* <MarkerClusterGroup
           chunkedLoading
           iconCreateFunction={createCustomeClusterIcon}
         >
@@ -165,7 +165,7 @@ export default function Alpha() {
               <Popup>{marker.popUp}</Popup>
             </Marker>
           ))}
-        </MarkerClusterGroup>
+        </MarkerClusterGroup> */}
         <FeatureGroup>
           <EditControl
             position="topleft"

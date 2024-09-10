@@ -4,8 +4,19 @@ const path = require("path")
 
 const cors = require("cors")
 const pool = require("./db")
-
 const multer = require("multer")
+
+// const fileFilter = (req, file, cb) => {
+//   console.log("hue")
+//   if (file.mimetype != "image/tiff") {
+//     console.log("skipped")
+//     cb(null, false)
+//     return
+//   }
+
+//   cb(null, true)
+// }
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "..\\client\\public\\GeoTIFF")
@@ -24,7 +35,9 @@ const storage = multer.diskStorage({
     )
   },
 })
-const upload = multer({ storage: storage })
+
+//fungsi upload menggunakan multer
+const upload = multer({ storage })
 
 //middleware
 app.use(cors())
@@ -49,20 +62,57 @@ app.use(express.json())
 //   }
 // })
 
+// app.post("/maps", upload.array("files", 3), async (req, res) => {
+//   try {
+//     const regex = /(GeoTIFF).*/
+//     const { name } = req.body
+//     const temp_path = req.files[0] === undefined ? "kosong" : req.files[0].path
+//     const temp_path2 = req.files[1] === undefined ? "kosong" : req.files[1].path
+//     const temp_path3 = req.files[2] === undefined ? "kosong" : req.files[2].path
+//     const path =
+//       req.files[0] === undefined ? "kosong" : temp_path.match(regex)[0]
+//     const path2 =
+//       req.files[1] === undefined ? "kosong" : temp_path2.match(regex)[0]
+//     const path3 =
+//       req.files[2] === undefined ? "kosong" : temp_path3.match(regex)[0]
+//     const newMap = await pool.query(
+//       "INSERT INTO maps (name, ndvi, lst, tci) VALUES($1, $2, $3, $4) RETURNING *",
+//       [name, path, path2, path3]
+//     )
+//     res.json(newMap.rows[0])
+//   } catch (err) {
+//     console.error(err.message)
+//   }
+// })
+
 //create for multiple maps
-app.post("/maps", upload.array("files", 3), async (req, res) => {
+const multiUpload = upload.fields([
+  { name: "ndvi", maxCount: 1 },
+  { name: "lst", maxCount: 1 },
+  { name: "tci", maxCount: 1 },
+])
+app.post("/maps", multiUpload, async (req, res) => {
   try {
     const regex = /(GeoTIFF).*/
     const { name } = req.body
-    const temp_path = req.files[0].path
-    const temp_path2 = req.files[1].path
-    const temp_path3 = req.files[2].path
-    const path = temp_path.match(regex)
-    const path2 = temp_path2.match(regex)
-    const path3 = temp_path3.match(regex)
+    const temp_path =
+      req.files["ndvi"] === undefined ? "kosong" : req.files["ndvi"][0].path
+    console.log("lwat sini 1")
+    const temp_path2 =
+      req.files["lst"] === undefined ? "kosong" : req.files["lst"][0].path
+    console.log("lwat sini 2")
+    const temp_path3 =
+      req.files["tci"] === undefined ? "kosong" : req.files["tci"][0].path
+    console.log(temp_path, temp_path2, temp_path3)
+    const path =
+      req.files["ndvi"] === undefined ? "kosong" : temp_path.match(regex)[0]
+    const path2 =
+      req.files["lst"] === undefined ? "kosong" : temp_path2.match(regex)[0]
+    const path3 =
+      req.files["tci"] === undefined ? "kosong" : temp_path3.match(regex)[0]
     const newMap = await pool.query(
-      "INSERT INTO maps (name, ndvi, lst, vhi) VALUES($1, $2, $3, $4) RETURNING *",
-      [name, path[0], path2[0], path3[0]]
+      "INSERT INTO maps (name, ndvi, lst, tci) VALUES($1, $2, $3, $4) RETURNING *",
+      [name, path, path2, path3]
     )
     res.json(newMap.rows[0])
   } catch (err) {

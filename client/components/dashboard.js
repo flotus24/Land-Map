@@ -70,7 +70,7 @@ export const Dashboard = ({
         </option>
         <option value="">- Kosong - </option>
         {maps.map((map) => (
-          <option value={[map.ndvi, map.lst, map.vhi]}>{map.name}</option>
+          <option value={[map.ndvi, map.lst, map.tci]}>{map.name}</option>
         ))}
       </select>
 
@@ -101,7 +101,7 @@ export const Dashboard = ({
           </label>
           <br />
 
-          <label className="mt-4 text-sm">Tutupan Tanaman :</label>
+          <label className="mt-4 text-sm">Tutupan Tumbuhan :</label>
 
           <div className="p-3 center flex justify-center">
             <input
@@ -145,7 +145,7 @@ export const Dashboard = ({
             />
           </div>
 
-          <label className="mt-4 text-sm">Kesehatan Tanaman :</label>
+          <label className="mt-4 text-sm">Deteksi Kekeringan :</label>
 
           <div className="p-3 center flex justify-center">
             <input
