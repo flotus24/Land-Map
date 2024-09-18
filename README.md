@@ -1,4 +1,4 @@
-Sebuah aplikasi yang dibuat untuk memenuhi judul skripsi **"VISUALISASI PEMETAAN TINGKAT KEKERINGAN TANAH DENGAN SUHU PERMUKAAN MENGGUNAKAN CITRA LANDSAT"**. Tujuan aplikasi ini untuk memusatkan pemetaan permukaan bumi terutama kekeringan yang disajikan pada satu website bernama Land Map. Aplikasi dan database dideploy di lokal. 
+Sebuah aplikasi yang dibuat untuk memenuhi judul skripsi **"VISUALISASI PEMETAAN TINGKAT KEKERINGAN TANAH DENGAN SUHU PERMUKAAN MENGGUNAKAN CITRA LANDSAT"**. Tujuan aplikasi ini untuk memusatkan pemetaan permukaan bumi terutama kekeringan yang disajikan pada satu website bernama Land Map. Aplikasi dan database dideploy secara lokal. 
 
 ## Abstrak: 
 
