@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
     "@sweetalert2/theme-dark": "^5.0.15",
     "daisyui": "^4.4.19",
+    "encoding": "^0.1.13",
     "georaster": "^1.6.0",
     "georaster-layer-for-leaflet": "^3.10.0",
-    "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.4.0",
     "next": "14.0.3",
     "react": "^18",
